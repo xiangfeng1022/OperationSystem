@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <error.h>
+#include <unistd.h>
 
 int main()
 {
@@ -13,7 +14,8 @@ int main()
     {
         perror("open error");
     }
-    
+    /* 关闭文件 */
+    close(fd);
     
     return 0;
 }
