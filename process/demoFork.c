@@ -23,11 +23,15 @@ int main()
 #endif
 
     int num = 100;
+    /* 创建一个子进程 */
     pid_t pid = fork();
+    /* 创建完子进程后，父进程不会自杀 */
+
     if (pid < 0)
     {
         perror("fork error");
-        return 0;
+        // return 0;
+        _exit(0);
     }
     if (pid == 0)
     {   
@@ -37,9 +41,16 @@ int main()
         /* 子进程 */
         pid_t childPid = getpid();
         printf("child process: childPid: %d, num:%d\n", childPid, num);
-
-        // pid_t parentPid = getppid();
-        // printf("child process: parentPid: %d\n", parentPid);
+        
+        /* 父进程 */
+        pid_t parentPid = getppid();
+        printf("child process: parentPid: %d\n", parentPid);
+        
+        int childA = 666;
+        //  while (1)
+        //  {
+        //     sleep(3);
+        //  }
     }
     else if (pid > 0)
     {
@@ -48,9 +59,20 @@ int main()
         printf("parent process: parentPid: %d, num:%d\n", parentPid, num);
         num += 100;
          printf("parent process: parentPid: %d, num:%d\n", parentPid, num);
+        
+        /* 拿不到 因为父子进程都是独立的地址空间 */
+        // printf("parent process : childA: %d\n", childA);
+        //  while (1)
+        //  {
+        //     sleep(3);
+        //  }
     }
+    
+    
 
-
-
+    /* 父子进程都会到达这个地方 */
+    printf("hello world\n");
+    
+    
     return 0;
 }
