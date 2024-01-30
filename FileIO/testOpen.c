@@ -4,16 +4,21 @@
 #include <fcntl.h>
 #include <error.h>
 #include <unistd.h>
+// #include <sys/types.h>
+// #include <sys/stat.h>
+// #include <fcntl.h>  三个是man open 的头文件
 
 int main()
 {
-
+    /* 返回值文件描述符 */
     /* 打开文件 */
+    /* 加O_CREAT */
     int fd1 = open("./hello.txt", O_RDWR | O_CREAT, 0644);
     if (fd1 == -1)
     {
         perror("open error");
     }
+    /* 验证描述符 */
     printf("fd1 = %d\n", fd1);
 
     int fd2 = open("./hello.txt", O_RDWR | O_CREAT, 0644);
@@ -37,7 +42,7 @@ int main()
     }
     printf("fd4 = %d\n", fd4);
 
-    /* 关闭文件fd1 */
+    /* 关闭文件 */
     close(fd1);
 
     int fd5 = open("./hello.txt", O_RDWR | O_CREAT, 0644);
